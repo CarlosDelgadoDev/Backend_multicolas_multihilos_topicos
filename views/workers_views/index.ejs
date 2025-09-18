@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker Manager Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    pre {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .collapse-button { margin-bottom: 5px; }
+    .queue-card { margin-bottom: 20px; }
+    .queue-header { display: flex; justify-content: space-between; align-items: center; }
+    .queue-header h5 { margin: 0; }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <h1 class="mb-4">Worker Manager Dashboard</h1>
+
+  <!-- Crear/gestionar colas -->
+  <div class="card p-3 mb-4">
+    <div class="form-row align-items-end">
+      <div class="form-group col-md-4">
+        <label for="queueName">Nombre de la cola</label>
+        <input type="text" id="queueName" class="form-control" placeholder="ej: cola1">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="concurrency">Hilos</label>
+        <input type="number" id="concurrency" class="form-control" value="1" min="1">
+      </div>
+      <div class="form-group col-md-6 d-flex">
+        <button class="btn btn-primary mr-2" onclick="startWorker()">Iniciar Worker</button>
+        <button class="btn btn-danger mr-2" onclick="stopWorker()">Detener Worker</button>
+        <button class="btn btn-info" onclick="updateAllStatus()">Actualizar Estado</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel de colas dinámicas -->
+  <div id="queuesContainer"></div>
+</div>
+
+<script>
+let queues = {};
+
+function getQueueInput() { return document.getElementById('queueName').value.trim(); }
+function getConcurrencyInput() { return parseInt(document.getElementById('concurrency').value) || 1; }
+
+async function startWorker() {
+  const queue = getQueueInput();
+  if (!queue) return alert("Escribe un nombre de cola");
+  const concurrency = getConcurrencyInput();
+  try {
+    const res = await fetch(`/worker/start/${queue}/${concurrency}`);
+    const data = await res.json();
+    alert(data.status);
+    addQueueCard(queue);
+    updateQueueStatus(queue);
+    updateQueueJobs(queue);
+  } catch (e) { console.error(e); alert("Error al iniciar worker"); }
+}
+
+async function stopWorker() {
+  const queue = getQueueInput();
+  if (!queue) return alert("Escribe un nombre de cola");
+  try {
+    const res = await fetch(`/worker/stop/${queue}`);
+    const data = await res.json();
+    alert(data.status);
+    updateQueueStatus(queue);
+  } catch (e) { console.error(e); alert("Error al detener worker"); }
+}
+
+function addQueueCard(queue) {
+  if (queues[queue]) return;
+  queues[queue] = { jobs: [], running: false, concurrency: 0 };
+
+  const container = document.getElementById('queuesContainer');
+  const card = document.createElement('div');
+  card.className = 'card queue-card';
+  card.id = `queue-${queue}`;
+  card.innerHTML = `
+    <div class="card-body">
+      <div class="queue-header">
+        <h5>${queue}</h5>
+        <div>
+          <span id="threads-${queue}" class="badge badge-info mr-2">Hilos: ?</span>
+          <span id="status-${queue}" class="badge badge-secondary">Desconocido</span>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-secondary mt-2" onclick="updateQueueJobs('${queue}')">Actualizar Jobs</button>
+      <div class="table-responsive mt-2">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th><th>Name</th><th>State</th><th>Data</th><th>Return Value</th><th>Failed Reason</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-${queue}"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  container.appendChild(card);
+  updateQueueStatus(queue);
+}
+
+async function updateQueueStatus(queue) {
+  try {
+    const res = await fetch(`/worker/status/${queue}`);
+    const data = await res.json();
+    const badge = document.getElementById(`status-${queue}`);
+    badge.textContent = data.running ? "Corriendo" : "Detenido";
+    badge.className = data.running ? "badge badge-success" : "badge badge-danger";
+    document.getElementById(`threads-${queue}`).textContent = `Hilos: ${data.concurrency}`;
+    queues[queue].running = data.running;
+    queues[queue].concurrency = data.concurrency;
+  } catch (e) { console.error(e); }
+}
+
+async function updateQueueJobs(queue) {
+  if (!queues[queue]) addQueueCard(queue);
+  try {
+    const res = await fetch(`/worker/jobs/${queue}`);
+    const jobs = await res.json();
+    queues[queue].jobs = jobs;
+    const tbody = document.getElementById(`tbody-${queue}`);
+    tbody.innerHTML = '';
+    jobs.forEach(job => {
+      const row = tbody.insertRow();
+      row.insertCell().textContent = job.id;
+      row.insertCell().textContent = job.name;
+      row.insertCell().textContent = job.state;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#data-${queue}-${job.id}">Ver Data</button><div class="collapse" id="data-${queue}-${job.id}"><pre>${JSON.stringify(job.data, null, 2)}</pre></div>`;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#return-${queue}-${job.id}">Ver Return</button><div class="collapse" id="return-${queue}-${job.id}"><pre>${JSON.stringify(job.returnvalue || {}, null, 2)}</pre></div>`;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#failed-${queue}-${job.id}">Ver Error</button><div class="collapse" id="failed-${queue}-${job.id}"><pre>${job.failedReason || ''}</pre></div>`;
+    });
+    updateQueueStatus(queue);
+  } catch (e) { console.error(e); alert(`Error al obtener jobs de la cola ${queue}`); }
+}
+
+function updateAllStatus() { 
+  Object.keys(queues).forEach(q => { 
+    updateQueueStatus(q); 
+    updateQueueJobs(q); 
+  }); 
+}
+
+// ❌ Auto refresh desactivado
+// setInterval(updateAllStatus, 5000);
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

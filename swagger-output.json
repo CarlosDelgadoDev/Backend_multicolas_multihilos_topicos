@@ -1,0 +1,2733 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Topicos Inscripcion",
+    "version": "1.0.0",
+    "description": "Documentación de la API para el sistema de inscripción"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/acta_de_notas": {
+      "get": {
+        "summary": "Obtener todas las actas de notas",
+        "tags": [
+          "ActaDeNotas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de actas de notas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva acta de notas",
+        "tags": [
+          "ActaDeNotas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grupoMateriaId": {
+                    "type": "integer"
+                  },
+                  "docenteId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Acta de notas creada"
+          }
+        }
+      }
+    },
+    "/acta_de_notas/{id}": {
+      "get": {
+        "summary": "Obtener acta de notas por ID",
+        "tags": [
+          "ActaDeNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acta de notas encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar acta de notas",
+        "tags": [
+          "ActaDeNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grupoMateriaId": {
+                    "type": "integer"
+                  },
+                  "docenteId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Acta de notas actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar acta de notas",
+        "tags": [
+          "ActaDeNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acta de notas eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/aulas": {
+      "get": {
+        "summary": "Obtener todas las aulas",
+        "tags": [
+          "Aulas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de aulas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva aula",
+        "tags": [
+          "Aulas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Aula creada"
+          }
+        }
+      }
+    },
+    "/aulas/{id}": {
+      "get": {
+        "summary": "Obtener aula por ID",
+        "tags": [
+          "Aulas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aula encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar aula",
+        "tags": [
+          "Aulas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aula actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar aula",
+        "tags": [
+          "Aulas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aula eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/boleta_inscripcion": {
+      "get": {
+        "summary": "Obtener todas las boletas de inscripción",
+        "tags": [
+          "BoletaInscripcion"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de boletas de inscripción"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva boleta de inscripción",
+        "tags": [
+          "BoletaInscripcion"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "gestionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Boleta de inscripción creada"
+          }
+        }
+      }
+    },
+    "/boleta_inscripcion/{id}": {
+      "get": {
+        "summary": "Obtener boleta de inscripción por ID",
+        "tags": [
+          "BoletaInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boleta de inscripción encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar boleta de inscripción",
+        "tags": [
+          "BoletaInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "gestionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Boleta de inscripción actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar boleta de inscripción",
+        "tags": [
+          "BoletaInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Boleta de inscripción eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/carreras": {
+      "get": {
+        "summary": "Obtener todas las carreras con paginación",
+        "tags": [
+          "Carreras"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            },
+            "description": "Número de página (por defecto 1)"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            },
+            "description": "Número de elementos por página (por defecto 10)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de carreras obtenida exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "carreras": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 6
+                          },
+                          "nombre": {
+                            "type": "string",
+                            "example": "Salud Humanaa"
+                          },
+                          "descripcion": {
+                            "type": "string",
+                            "example": "carrera de salud humana"
+                          },
+                          "sigla": {
+                            "type": "string",
+                            "example": "SH"
+                          },
+                          "facultadId": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2025-09-11T17:26:12.261Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2025-09-11T19:06:47.806Z"
+                          },
+                          "Facultad": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "nombre": {
+                                "type": "string",
+                                "example": "Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones"
+                              },
+                              "descripcion": {
+                                "type": "string",
+                                "example": "Forma ingenieros en computación y telecomunicaciones con enfoque tecnológico y de innovación."
+                              },
+                              "sigla": {
+                                "type": "string",
+                                "example": "FICCT"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-09-11T17:08:02.705Z"
+                              },
+                              "updatedAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-09-11T17:08:02.705Z"
+                              }
+                            }
+                          },
+                          "Plan_de_estudios": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "example": 5
+                                },
+                                "nombre": {
+                                  "type": "string",
+                                  "example": "Plan 2024 - Administración de Empresas"
+                                },
+                                "tipoPeriodo": {
+                                  "type": "string",
+                                  "example": "Semestral"
+                                },
+                                "modalidad": {
+                                  "type": "string",
+                                  "example": "Virtual"
+                                },
+                                "codigo": {
+                                  "type": "string",
+                                  "example": "ADE-2024"
+                                },
+                                "carreraId": {
+                                  "type": "integer",
+                                  "example": 6
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "example": "2025-09-11T17:08:02.727Z"
+                                },
+                                "updatedAt": {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "example": "2025-09-11T19:11:31.455Z"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "pageSize": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "carreras": [
+                    {
+                      "id": 6,
+                      "nombre": "Salud Humanaa",
+                      "descripcion": "carrera de salud humana",
+                      "sigla": "SH",
+                      "facultadId": 1,
+                      "createdAt": "2025-09-11T17:26:12.261Z",
+                      "updatedAt": "2025-09-11T19:06:47.806Z",
+                      "Facultad": {
+                        "id": 1,
+                        "nombre": "Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones",
+                        "descripcion": "Forma ingenieros en computación y telecomunicaciones con enfoque tecnológico y de innovación.",
+                        "sigla": "FICCT",
+                        "createdAt": "2025-09-11T17:08:02.705Z",
+                        "updatedAt": "2025-09-11T17:08:02.705Z"
+                      },
+                      "Plan_de_estudios": [
+                        {
+                          "id": 5,
+                          "nombre": "Plan 2024 - Administración de Empresas",
+                          "tipoPeriodo": "Semestral",
+                          "modalidad": "Virtual",
+                          "codigo": "ADE-2024",
+                          "carreraId": 6,
+                          "createdAt": "2025-09-11T17:08:02.727Z",
+                          "updatedAt": "2025-09-11T19:11:31.455Z"
+                        },
+                        {
+                          "id": 6,
+                          "nombre": "Plan 2024 - Diseño Gráfico",
+                          "tipoPeriodo": "Semestral",
+                          "modalidad": "Semipresencial",
+                          "codigo": "DG-2024",
+                          "carreraId": 6,
+                          "createdAt": "2025-09-11T17:08:02.727Z",
+                          "updatedAt": "2025-09-11T19:11:31.455Z"
+                        }
+                      ]
+                    }
+                  ],
+                  "pagination": {
+                    "total": 1,
+                    "page": 1,
+                    "pageSize": 10,
+                    "totalPages": 1
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros inválidos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva carrera",
+        "tags": [
+          "Carreras"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "descripcion": {
+                    "type": "string"
+                  },
+                  "sigla": {
+                    "type": "string"
+                  },
+                  "facultadId": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "nombre": "Salud Humanaa",
+                "descripcion": "carrera de salud humana",
+                "sigla": "SH",
+                "Facultad": {
+                  "sigla": "FICCT"
+                },
+                "Plan_de_estudios": [
+                  {
+                    "nombre": "Plan 2024 - Administración de Empresas",
+                    "tipoPeriodo": "Semestral",
+                    "modalidad": "Virtual",
+                    "codigo": "ADE-2024"
+                  },
+                  {
+                    "nombre": "Plan 2024 - Diseño Gráfico",
+                    "tipoPeriodo": "Semestral",
+                    "modalidad": "Semipresencial",
+                    "codigo": "DG-2024"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Carrera creada"
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/carreras/{sigla}": {
+      "get": {
+        "summary": "Obtener carrera por ID",
+        "tags": [
+          "Carreras"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sigla",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Carrera encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar carrera",
+        "tags": [
+          "Carreras"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "sigla",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "nombre",
+                  "descripcion",
+                  "sigla"
+                ],
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "example": "Salud Humanaa"
+                  },
+                  "descripcion": {
+                    "type": "string",
+                    "example": "carrera de salud humana"
+                  },
+                  "sigla": {
+                    "type": "string",
+                    "example": "SH"
+                  },
+                  "Facultad": {
+                    "type": "object",
+                    "required": [
+                      "sigla"
+                    ],
+                    "properties": {
+                      "sigla": {
+                        "type": "string",
+                        "example": "FICCT"
+                      }
+                    }
+                  },
+                  "Plan_de_estudios": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "codigo"
+                      ],
+                      "properties": {
+                        "codigo": {
+                          "type": "string",
+                          "example": "DG-2024"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "nombre": "Salud Humanaa",
+                "descripcion": "carrera de salud humana",
+                "sigla": "SH",
+                "Facultad": {
+                  "sigla": "FICCT"
+                },
+                "Plan_de_estudios": [
+                  {
+                    "codigo": "DG-2024"
+                  },
+                  {
+                    "codigo": "ADE-2024"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Carrera actualizada"
+          },
+          "400": {
+            "description": "Error en los datos enviados"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar carrera",
+        "tags": [
+          "Carreras"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Carrera eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/detalle_carrera_cursadas": {
+      "get": {
+        "summary": "Obtener todos los detalles de carrera cursadas",
+        "tags": [
+          "DetalleCarreraCursadas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de detalles de carrera cursadas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo detalle de carrera cursadas",
+        "tags": [
+          "DetalleCarreraCursadas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "carreraId": {
+                    "type": "integer"
+                  },
+                  "gestionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Detalle de carrera cursadas creado"
+          }
+        }
+      }
+    },
+    "/detalle_carrera_cursadas/{id}": {
+      "get": {
+        "summary": "Obtener detalle de carrera cursadas por ID",
+        "tags": [
+          "DetalleCarreraCursadas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de carrera cursadas encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar detalle de carrera cursadas",
+        "tags": [
+          "DetalleCarreraCursadas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "carreraId": {
+                    "type": "integer"
+                  },
+                  "gestionId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Detalle de carrera cursadas actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar detalle de carrera cursadas",
+        "tags": [
+          "DetalleCarreraCursadas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de carrera cursadas eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/detalle_inscripcion": {
+      "get": {
+        "summary": "Obtener todos los detalles de inscripción",
+        "tags": [
+          "DetalleInscripcion"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de detalles de inscripción"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo detalle de inscripción",
+        "tags": [
+          "DetalleInscripcion"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "boletaInscripcionId": {
+                    "type": "integer"
+                  },
+                  "grupoMateriaId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Detalle de inscripción creado"
+          }
+        }
+      }
+    },
+    "/detalle_inscripcion/{id}": {
+      "get": {
+        "summary": "Obtener detalle de inscripción por ID",
+        "tags": [
+          "DetalleInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de inscripción encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar detalle de inscripción",
+        "tags": [
+          "DetalleInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "boletaInscripcionId": {
+                    "type": "integer"
+                  },
+                  "grupoMateriaId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Detalle de inscripción actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar detalle de inscripción",
+        "tags": [
+          "DetalleInscripcion"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de inscripción eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/detalle_notas": {
+      "get": {
+        "summary": "Obtener todos los detalles de notas",
+        "tags": [
+          "DetalleNotas"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de detalles de notas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo detalle de notas",
+        "tags": [
+          "DetalleNotas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "actaDeNotasId": {
+                    "type": "integer"
+                  },
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "nota": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Detalle de notas creado"
+          }
+        }
+      }
+    },
+    "/detalle_notas/{id}": {
+      "get": {
+        "summary": "Obtener detalle de notas por ID",
+        "tags": [
+          "DetalleNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de notas encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar detalle de notas",
+        "tags": [
+          "DetalleNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "actaDeNotasId": {
+                    "type": "integer"
+                  },
+                  "estudianteId": {
+                    "type": "integer"
+                  },
+                  "nota": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Detalle de notas actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar detalle de notas",
+        "tags": [
+          "DetalleNotas"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalle de notas eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/docentes": {
+      "get": {
+        "summary": "Obtener todos los docentes",
+        "tags": [
+          "Docentes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de docentes"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo docente",
+        "tags": [
+          "Docentes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "apellidoPaterno": {
+                    "type": "string"
+                  },
+                  "apellidoMaterno": {
+                    "type": "string"
+                  },
+                  "ci": {
+                    "type": "string"
+                  },
+                  "fechaNac": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "profesion": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Docente creado"
+          }
+        }
+      }
+    },
+    "/docentes/{id}": {
+      "get": {
+        "summary": "Obtener docente por ID",
+        "tags": [
+          "Docentes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Docente encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar docente",
+        "tags": [
+          "Docentes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "apellidoPaterno": {
+                    "type": "string"
+                  },
+                  "apellidoMaterno": {
+                    "type": "string"
+                  },
+                  "ci": {
+                    "type": "string"
+                  },
+                  "fechaNac": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "profesion": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Docente actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar docente",
+        "tags": [
+          "Docentes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Docente eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/estudiantes": {
+      "get": {
+        "summary": "Obtener todos los estudiantes",
+        "tags": [
+          "Estudiantes"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de estudiantes"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo estudiante",
+        "tags": [
+          "Estudiantes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "apellidoPaterno": {
+                    "type": "string"
+                  },
+                  "apellidoMaterno": {
+                    "type": "string"
+                  },
+                  "ci": {
+                    "type": "string"
+                  },
+                  "fechaNacimiento": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "nacionalidad": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estudiante creado"
+          }
+        }
+      }
+    },
+    "/estudiantes/{id}": {
+      "get": {
+        "summary": "Obtener estudiante por ID",
+        "tags": [
+          "Estudiantes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estudiante encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar estudiante",
+        "tags": [
+          "Estudiantes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "apellidoPaterno": {
+                    "type": "string"
+                  },
+                  "apellidoMaterno": {
+                    "type": "string"
+                  },
+                  "ci": {
+                    "type": "string"
+                  },
+                  "fechaNacimiento": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "nacionalidad": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estudiante actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar estudiante",
+        "tags": [
+          "Estudiantes"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estudiante eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/facultades": {
+      "get": {
+        "summary": "Obtener todas las facultades",
+        "tags": [
+          "Facultades"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de facultades"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva facultad",
+        "tags": [
+          "Facultades"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Facultad creada"
+          }
+        }
+      }
+    },
+    "/facultades/{id}": {
+      "get": {
+        "summary": "Obtener facultad por ID",
+        "tags": [
+          "Facultades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Facultad encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar facultad",
+        "tags": [
+          "Facultades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Facultad actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar facultad",
+        "tags": [
+          "Facultades"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Facultad eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/gestiones": {
+      "get": {
+        "summary": "Obtener todas las gestiones",
+        "tags": [
+          "Gestiones"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de gestiones"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva gestión",
+        "tags": [
+          "Gestiones"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Gestión creada"
+          }
+        }
+      }
+    },
+    "/gestiones/{id}": {
+      "get": {
+        "summary": "Obtener gestión por ID",
+        "tags": [
+          "Gestiones"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gestión encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar gestión",
+        "tags": [
+          "Gestiones"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gestión actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar gestión",
+        "tags": [
+          "Gestiones"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gestión eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/grupo_materia": {
+      "get": {
+        "summary": "Obtener todos los grupos de materia",
+        "tags": [
+          "GrupoMateria"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de grupos de materia"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo grupo de materia",
+        "tags": [
+          "GrupoMateria"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Grupo de materia creado"
+          }
+        }
+      }
+    },
+    "/grupo_materia/{id}": {
+      "get": {
+        "summary": "Obtener grupo de materia por ID",
+        "tags": [
+          "GrupoMateria"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo de materia encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar grupo de materia",
+        "tags": [
+          "GrupoMateria"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Grupo de materia actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar grupo de materia",
+        "tags": [
+          "GrupoMateria"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo de materia eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/materias": {
+      "get": {
+        "summary": "Obtener todas las materias",
+        "tags": [
+          "Materias"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de materias"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva materia",
+        "tags": [
+          "Materias"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Materia creada"
+          }
+        }
+      }
+    },
+    "/materias/{id}": {
+      "get": {
+        "summary": "Obtener materia por ID",
+        "tags": [
+          "Materias"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Materia encontrada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar materia",
+        "tags": [
+          "Materias"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Materia actualizada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar materia",
+        "tags": [
+          "Materias"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Materia eliminada"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/modulos": {
+      "get": {
+        "summary": "Obtener todos los modulos",
+        "tags": [
+          "Modulos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de modulos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo modulo",
+        "tags": [
+          "Modulos"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Modulo creado"
+          }
+        }
+      }
+    },
+    "/modulos/{id}": {
+      "get": {
+        "summary": "Obtener modulo por ID",
+        "tags": [
+          "Modulos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar modulo",
+        "tags": [
+          "Modulos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Modulo actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar modulo",
+        "tags": [
+          "Modulos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/periodos": {
+      "get": {
+        "summary": "Obtener todos los periodos",
+        "tags": [
+          "Periodos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de periodos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo periodo",
+        "tags": [
+          "Periodos"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Periodo creado"
+          }
+        }
+      }
+    },
+    "/periodos/{id}": {
+      "get": {
+        "summary": "Obtener periodo por ID",
+        "tags": [
+          "Periodos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Periodo encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar periodo",
+        "tags": [
+          "Periodos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Periodo actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar periodo",
+        "tags": [
+          "Periodos"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Periodo eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/plan_de_estudio": {
+      "get": {
+        "summary": "Obtener todos los planes de estudio",
+        "tags": [
+          "PlanDeEstudio"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de planes de estudio"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo plan de estudio",
+        "tags": [
+          "PlanDeEstudio"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Plan de estudio creado"
+          }
+        }
+      }
+    },
+    "/plan_de_estudio/{id}": {
+      "get": {
+        "summary": "Obtener plan de estudio por ID",
+        "tags": [
+          "PlanDeEstudio"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plan de estudio encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar plan de estudio",
+        "tags": [
+          "PlanDeEstudio"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Plan de estudio actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar plan de estudio",
+        "tags": [
+          "PlanDeEstudio"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plan de estudio eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "/pre_requisito": {
+      "get": {
+        "summary": "Obtener todos los pre-requisitos",
+        "tags": [
+          "PreRequisito"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de pre-requisitos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo pre-requisito",
+        "tags": [
+          "PreRequisito"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "materiaId": {
+                    "type": "integer"
+                  },
+                  "requisitoId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pre-requisito creado"
+          }
+        }
+      }
+    },
+    "/pre_requisito/{id}": {
+      "get": {
+        "summary": "Obtener pre-requisito por ID",
+        "tags": [
+          "PreRequisito"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pre-requisito encontrado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar pre-requisito",
+        "tags": [
+          "PreRequisito"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "materiaId": {
+                    "type": "integer"
+                  },
+                  "requisitoId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pre-requisito actualizado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar pre-requisito",
+        "tags": [
+          "PreRequisito"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pre-requisito eliminado"
+          },
+          "404": {
+            "description": "No encontrado"
+          }
+        }
+      }
+    },
+    "tag": {
+      "name": "Tasks",
+      "description": "Endpoints para gestionar tareas asíncronas"
+    },
+    "/tasks": {
+      "post": {
+        "summary": "para encolar la tarea asincrona",
+        "tags": [
+          "Tasks"
+        ],
+        "responses": {
+          "200": {
+            "description": "tarea encolada"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "summary": "para ver el estado de la tarea",
+        "tags": [
+          "Tasks"
+        ],
+        "responses": {
+          "200": {
+            "description": "tarea encontrada",
+            "status": [
+              "procesada",
+              "procesando",
+              "error"
+            ],
+            "response": {
+              "data": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": [
+    {
+      "name": "ActaDeNotas",
+      "description": "Endpoints para gestionar actas de notas"
+    },
+    {
+      "name": "Aulas",
+      "description": "Endpoints para gestionar aulas"
+    },
+    {
+      "name": "BoletaInscripcion",
+      "description": "Endpoints para gestionar boletas de inscripción"
+    },
+    {
+      "name": "Carreras",
+      "description": "Endpoints para gestionar carreras"
+    },
+    {
+      "name": "DetalleCarreraCursadas",
+      "description": "Endpoints para gestionar detalles de carrera cursadas"
+    },
+    {
+      "name": "DetalleInscripcion",
+      "description": "Endpoints para gestionar detalles de inscripción"
+    },
+    {
+      "name": "DetalleNotas",
+      "description": "Endpoints para gestionar detalles de notas"
+    },
+    {
+      "name": "Docentes",
+      "description": "Endpoints para gestionar docentes"
+    },
+    {
+      "name": "Estudiantes",
+      "description": "Endpoints para gestionar estudiantes"
+    },
+    {
+      "name": "Facultades",
+      "description": "Endpoints para gestionar facultades"
+    },
+    {
+      "name": "Gestiones",
+      "description": "Endpoints para gestionar gestiones"
+    },
+    {
+      "name": "GrupoMateria",
+      "description": "Endpoints para gestionar grupos de materia"
+    },
+    {
+      "name": "Materias",
+      "description": "Endpoints para gestionar materias"
+    },
+    {
+      "name": "Modulos",
+      "description": "Endpoints para gestionar modulos"
+    },
+    {
+      "name": "Periodos",
+      "description": "Endpoints para gestionar periodos"
+    },
+    {
+      "name": "PlanDeEstudio",
+      "description": "Endpoints para gestionar planes de estudio"
+    },
+    {
+      "name": "PreRequisito",
+      "description": "Endpoints para gestionar pre-requisitos"
+    }
+  ]
+}

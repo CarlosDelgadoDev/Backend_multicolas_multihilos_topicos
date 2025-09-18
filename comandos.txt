@@ -1,0 +1,16 @@
+# Entra al contenedor de la aplicación (servicio "app") con una terminal interactiva tipo bash
+docker-compose exec app bash
+
+# Ejecuta las migraciones con Sequelize
+npx sequelize-cli db:migrate
+
+# Ejecuta todos los seeders definidos
+npx sequelize-cli db:seed:all
+
+#Sirve para deshacer (eliminar) todas las migraciones aplicadas hasta el momento.
+npx sequelize-cli db:migrate:undo:all
+
+
+
+# Guarda la imagen Docker de la app en un archivo .tar
+docker save -o topicos-inscripcion.tar topicos_inscripcion-app

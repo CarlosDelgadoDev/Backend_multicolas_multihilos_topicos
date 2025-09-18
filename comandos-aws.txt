@@ -1,0 +1,48 @@
+ssh -i topicos.pem ubuntu@13.58.197.144
+
+scp -i topicos.pem topicos-inscripcion.tar ubuntu@13.58.197.144:/home/ubuntu/
+
+ssh -i topicos.pem ubuntu@13.58.197.144
+
+
+//para descomprimir
+tar -xvf topicos-inscripcion.tar
+
+
+cd topicos-inscripcion
+
+ls
+
+
+docker build -t topicos-app .
+
+docker run -d -p 80:3000 --name topicos-container topicos-app
+
+7. Abre el puerto en el Security Group (si es necesario)
+
+En la consola de AWS:
+
+EC2 > Instancias > Selecciona tu instancia
+
+Ve a la sección “Security” > Security Groups
+
+Haz clic en el Security Group
+
+Ve a la pestaña Inbound rules y edita
+
+Añade una regla:
+
+Type: HTTP
+
+Port: 80
+
+Source: Anywhere (0.0.0.0/0)
+
+8. Verifica que está corriendo
+docker ps
+
+
+Deberías ver algo como:
+
+CONTAINER ID   IMAGE          ...   PORTS
+xxxxx          topicos-app    ...   0.0.0.0:80->3000/tcp
