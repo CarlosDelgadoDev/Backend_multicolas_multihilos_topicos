@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Worker Manager Dashboard</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    pre {
-      background-color: #f8f9fa;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-    .collapse-button { margin-bottom: 5px; }
-    .queue-card { margin-bottom: 20px; }
-    .queue-header { display: flex; justify-content: space-between; align-items: center; }
-    .queue-header h5 { margin: 0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Manager Dashboard</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+  pre { background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; }
+  .collapse-button { margin-bottom: 5px; }
+  .queue-card { margin-bottom: 20px; }
+  .queue-header { display: flex; justify-content: space-between; align-items: center; }
+  .queue-header h5 { margin: 0; }
+</style>
 </head>
 <body>
 <div class="container mt-4">
   <h1 class="mb-4">Worker Manager Dashboard</h1>
 
-  <!-- Crear/gestionar colas -->
   <div class="card p-3 mb-4">
     <div class="form-row align-items-end">
       <div class="form-group col-md-4">
@@ -41,7 +35,6 @@
     </div>
   </div>
 
-  <!-- Panel de colas dinámicas -->
   <div id="queuesContainer"></div>
 </div>
 
@@ -50,6 +43,15 @@ let queues = {};
 
 function getQueueInput() { return document.getElementById('queueName').value.trim(); }
 function getConcurrencyInput() { return parseInt(document.getElementById('concurrency').value) || 1; }
+
+async function initQueues() {
+  try {
+    const res = await fetch('/worker/allQueues');
+    const allQueues = await res.json();
+    allQueues.forEach(q => addQueueCard(q));
+    updateAllStatus();
+  } catch(e) { console.error("Error al cargar colas:", e); }
+}
 
 async function startWorker() {
   const queue = getQueueInput();
@@ -91,15 +93,14 @@ function addQueueCard(queue) {
         <div>
           <span id="threads-${queue}" class="badge badge-info mr-2">Hilos: ?</span>
           <span id="status-${queue}" class="badge badge-secondary">Desconocido</span>
+          <button class="btn btn-sm btn-danger ml-2" onclick="deleteQueue('${queue}')">Eliminar</button>
         </div>
       </div>
       <button class="btn btn-sm btn-secondary mt-2" onclick="updateQueueJobs('${queue}')">Actualizar Jobs</button>
       <div class="table-responsive mt-2">
         <table class="table table-striped table-bordered">
           <thead class="thead-dark">
-            <tr>
-              <th>ID</th><th>Name</th><th>State</th><th>Data</th><th>Return Value</th><th>Failed Reason</th>
-            </tr>
+            <tr><th>ShortID</th><th>Name</th><th>State</th><th>Data</th><th>Return Value</th><th>Failed Reason</th></tr>
           </thead>
           <tbody id="tbody-${queue}"></tbody>
         </table>
@@ -133,26 +134,34 @@ async function updateQueueJobs(queue) {
     tbody.innerHTML = '';
     jobs.forEach(job => {
       const row = tbody.insertRow();
-      row.insertCell().textContent = job.id;
+      row.insertCell().textContent = job.data.shortId || job.id;
       row.insertCell().textContent = job.name;
       row.insertCell().textContent = job.state;
-      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#data-${queue}-${job.id}">Ver Data</button><div class="collapse" id="data-${queue}-${job.id}"><pre>${JSON.stringify(job.data, null, 2)}</pre></div>`;
-      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#return-${queue}-${job.id}">Ver Return</button><div class="collapse" id="return-${queue}-${job.id}"><pre>${JSON.stringify(job.returnvalue || {}, null, 2)}</pre></div>`;
-      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#failed-${queue}-${job.id}">Ver Error</button><div class="collapse" id="failed-${queue}-${job.id}"><pre>${job.failedReason || ''}</pre></div>`;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#data-${queue}-${job.data.shortId || job.id}">Ver Data</button><div class="collapse" id="data-${queue}-${job.data.shortId || job.id}"><pre>${JSON.stringify(job.data, null, 2)}</pre></div>`;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#return-${queue}-${job.data.shortId || job.id}">Ver Return</button><div class="collapse" id="return-${queue}-${job.data.shortId || job.id}"><pre>${JSON.stringify(job.returnvalue || {}, null, 2)}</pre></div>`;
+      row.insertCell().innerHTML = `<button class="btn btn-sm btn-outline-info collapse-button" type="button" data-toggle="collapse" data-target="#failed-${queue}-${job.data.shortId || job.id}">Ver Error</button><div class="collapse" id="failed-${queue}-${job.data.shortId || job.id}"><pre>${job.failedReason || ''}</pre></div>`;
     });
     updateQueueStatus(queue);
   } catch (e) { console.error(e); alert(`Error al obtener jobs de la cola ${queue}`); }
 }
 
-function updateAllStatus() { 
-  Object.keys(queues).forEach(q => { 
-    updateQueueStatus(q); 
-    updateQueueJobs(q); 
-  }); 
+function updateAllStatus() { Object.keys(queues).forEach(q => { updateQueueStatus(q); updateQueueJobs(q); }); }
+
+async function deleteQueue(queue) {
+  if (!queues[queue]) return;
+  if (!confirm(`¿Seguro que quieres eliminar la cola ${queue}?`)) return;
+  try {
+    const res = await fetch(`/worker/delete/${queue}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById(`queue-${queue}`).remove();
+      delete queues[queue];
+      alert(`Cola ${queue} eliminada`);
+    } else { alert(data.error); }
+  } catch (e) { console.error(e); alert("Error al eliminar la cola"); }
 }
 
-// ❌ Auto refresh desactivado
-// setInterval(updateAllStatus, 5000);
+initQueues();
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

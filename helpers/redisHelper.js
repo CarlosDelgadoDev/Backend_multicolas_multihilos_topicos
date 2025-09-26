@@ -1,7 +1,6 @@
-// redisHelper.js
 const Redis = require("ioredis");
 
-// ⚡ Conexión a Redis (puedes ajustar host/port/password con variables de entorno)
+// ⚡ Conexión a Redis
 const redis = new Redis({
   host: process.env.REDIS_HOST || "localhost",
   port: process.env.REDIS_PORT || 6380,
@@ -10,9 +9,6 @@ const redis = new Redis({
 
 /**
  * Guarda un objeto en una tabla Redis Hash evitando duplicados
- * @param {string} tabla - Nombre de la tabla (ej: 'estudiantes')
- * @param {string} id - Identificador único (ej: ci, codDocente)
- * @param {Object} data - Objeto completo
  */
 async function saveUnique(tabla, id, data) {
   const exists = await redis.hexists(tabla, id);
@@ -61,4 +57,34 @@ async function remove(tabla, id) {
   return { success: true, message: `${tabla.slice(0, -1)} eliminado correctamente` };
 }
 
-module.exports = { saveUnique, update, getById, getAll, remove };
+/**
+ * ---------------------------
+ * Funciones para WorkerManager
+ * ---------------------------
+ */
+const JOB_TABLE = 'jobs';
+
+/**
+ * Guarda el estado de un job
+ */
+async function saveJobRecord(shortId, record) {
+  await redis.hset(JOB_TABLE, shortId, JSON.stringify(record));
+}
+
+/**
+ * Obtiene el estado de un job
+ */
+async function getJobRecord(shortId) {
+  const data = await redis.hget(JOB_TABLE, shortId);
+  return data ? JSON.parse(data) : null;
+}
+
+module.exports = {
+  saveUnique,
+  update,
+  getById,
+  getAll,
+  remove,
+  saveJobRecord,
+  getJobRecord
+};
