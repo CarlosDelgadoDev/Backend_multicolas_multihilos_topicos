@@ -11,8 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-  Aula.belongsTo(models.Modulo, { foreignKey: 'moduloId' });
-  Aula.hasMany(models.Horario, { foreignKey: 'aulaId' });
+      Aula.belongsTo(models.Modulo, { foreignKey: 'moduloId' });
+
+      // Relación muchos a muchos con Horario a través de AulaHorario
+      Aula.belongsToMany(models.Horario, {
+        through: models.AulaHorario,
+        foreignKey: 'aulaId'
+      });
     }
   }
   Aula.init({

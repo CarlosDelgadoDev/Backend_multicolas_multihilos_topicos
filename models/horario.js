@@ -11,16 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-  Horario.belongsTo(models.Grupo_Materia, { foreignKey: 'grupoMateriaId' });
-  Horario.belongsTo(models.Aula, { foreignKey: 'aulaId' });
+      // Relación muchos a muchos con Aula a través de AulaHorario
+      Horario.belongsToMany(models.Aula, {
+        through: models.AulaHorario,
+        foreignKey: 'horarioId'
+      });
     }
   }
   Horario.init({
     inicio: DataTypes.TIME,
     final: DataTypes.TIME,
-    dia: DataTypes.STRING,
-    grupoMateriaId: DataTypes.INTEGER,
-    aulaId: DataTypes.INTEGER
+    dia: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Horario',

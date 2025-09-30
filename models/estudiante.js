@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
   Estudiante.hasMany(models.Detalle_carrera_cursadas, { foreignKey: 'estudianteId' });
   Estudiante.hasMany(models.Boleta_Inscripcion, { foreignKey: 'estudianteId' });
+  Estudiante.hasMany(models.MateriasVencidas, { foreignKey: 'estudianteId' });
     }
   }
   Estudiante.init({

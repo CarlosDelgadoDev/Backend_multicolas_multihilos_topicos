@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       GrupoMateria.belongsTo(models.Docente, { foreignKey: 'docenteId' });
       GrupoMateria.belongsTo(models.Periodo, { foreignKey: 'periodoId' });
       GrupoMateria.hasMany(models.Detalle_Inscripcion, { foreignKey: 'grupoMateriaId' });
-      GrupoMateria.hasMany(models.Horario, { foreignKey: 'grupoMateriaId' });
+      GrupoMateria.hasMany(models.AulaHorario, { foreignKey: 'grupoMateriaId' });
     }
   }
   GrupoMateria.init({

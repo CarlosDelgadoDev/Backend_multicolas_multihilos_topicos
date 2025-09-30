@@ -2,21 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Horarios', {
+    await queryInterface.createTable('MateriasVencidas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      inicio: {
-        type: Sequelize.TIME
+      estudianteId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Estudiantes',
+          key: 'id'
+        },
       },
-      final: {
-        type: Sequelize.TIME
-      },
-      dia: {
-        type: Sequelize.STRING
+      materiaInscritaId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Detalle_Inscripcions',
+          key: 'id'
+        },
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Horarios');
+    await queryInterface.dropTable('MateriasVencidas');
   }
 };

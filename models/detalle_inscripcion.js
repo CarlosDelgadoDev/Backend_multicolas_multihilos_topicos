@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Detalle_Inscripcion.belongsTo(models.Boleta_Inscripcion, { foreignKey: 'boletaInscripcionId' });
   Detalle_Inscripcion.belongsTo(models.Grupo_Materia, { foreignKey: 'grupoMateriaId' });
   Detalle_Inscripcion.hasMany(models.Detalle_de_notas, { foreignKey: 'detalleInscripcionId' , onDelete: 'SET NULL' });
+  Detalle_Inscripcion.hasMany(models.MateriasVencidas, { foreignKey: 'materiaInscritaId' , onDelete: 'SET NULL' }); // Relación con MateriasVencidas
     }
   }
   Detalle_Inscripcion.init({
